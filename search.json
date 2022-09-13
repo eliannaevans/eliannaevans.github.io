@@ -32,6 +32,6 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Books (assumes UTD Library access)\n\nData Visualization\nR Graphics\nVisualize This\n\n\n\nWebsites\n\nData Collection\nUCI Machine Learning Repository\nQuatrz Bad Data Guide"
+    "text": "Books (assumes UTD Library access)\n\nData Visualization, in order of technical difficulty\n\nVisualize This gives step-by-step graphic creation tips\nR Graphics goes through specific R packages and their integration, note that some packages are no longer available\nInformation Visualization approaches data visualization from a neuroscience standpoint\n\n\n\n\nWebsites\n\nData Collection\n\nUCI Machine Learning Repository\nQuatrz Bad Data Guide"
   }
 ]
