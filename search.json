@@ -18,7 +18,7 @@
     "href": "index.html",
     "title": "Eli Evans",
     "section": "",
-    "text": "Website last updated: 06-09-2022\n\nContact\naxe190014@utdallas.edu\n\n\nExample R Code\n\npar(family='Times New Roman')\nplot(iris, pch=20, cex=.75, col='steelblue')"
+    "text": "Website last updated: 13-09-2022\n\nContact\naxe190014@utdallas.edu\n\n\nExample R Code\n\npar(family='Times New Roman')\nplot(iris, pch=20, cex=.75, col='steelblue')"
   },
   {
     "objectID": "about.html",
@@ -32,6 +32,6 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Books (assumes UTD Library access)\n\nData Visualization, in order of technical difficulty\n\nVisualize This gives step-by-step graphic creation tips\nR Graphics goes through specific R packages and their integration, note that some packages are no longer available\nInformation Visualization approaches data visualization from a neuroscience standpoint\n\n\n\n\nWebsites\n\nData Collection\n\nUCI Machine Learning Repository\nQuatrz Bad Data Guide"
+    "text": "Books, assumes UTD library resource access\n\nData Visualization, in order of technical difficulty\n\nVisualize This gives step-by-step graphic creation tips\nR Graphics goes through specific R packages and their integration, note that some packages are no longer available\nInformation Visualization approaches data visualization from a neuroscience standpoint\n\n\n\n\nWebsites\n\nData Collection\n\nUCI Machine Learning Repository\nQuatrz Bad Data Guide"
   }
 ]
