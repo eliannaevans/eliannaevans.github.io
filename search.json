@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "assignment01.html",
+    "href": "assignment01.html",
+    "title": "Assignment 01",
+    "section": "",
+    "text": "By definition, generative art is art created by a computer system, either through a specified algorithm or with intentional randomness in the creation process. A few examples of generative art are shared below.\n\n\n\nGenerative art made by the Journal of Digital History using the R generative art package created by Katharina Brunner\n\n\nSource: c2dh.uni.lu/projects/journal-digital-history\n\n\n\nGenerative art by Mark J. Stock\n\n\nSource: markjstock.com\n\n\n\nGenerative art created in JavaScript by Espen Kluge\n\n\nSource: espen.xyz\n\n\n\nGenerated art from Fall.R with color lightsteelblue2\n\n\nSource: github.com/datageneration/datavisualization"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Python\n\nHackathons\nRecent\n\nCredit Rating Prediction\nCoins of the Seven Seas\n\nEarly\n\nNajaah’s Escape\n\n\n\nClass Projects\nIntroduction to Machine Learning (2021 Fall)\n\nK-means Tweet Clustering\n\nExtragalactic Astrophysics (2021 Spring)\n\nGalaxy Classification\nHerzsprung Russell\n\n\n\nPersonal Projects\n\nCreating a Neural Network\nTkInter Checkers"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Eli Evans",
+    "section": "",
+    "text": "Website last updated: 06-09-2022\n\nContact\naxe190014@utdallas.edu\n\n\nExample R Code\n\npar(family='Times New Roman')\nplot(iris, pch=20, cex=.75, col='steelblue')"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Books (assumes UTD Library access)\n\nData Visualization\nR Graphics\nVisualize This\n\n\n\nWebsites\n\nData Collection\nUCI Machine Learning Repository\nQuatrz Bad Data Guide"
+  }
+]
