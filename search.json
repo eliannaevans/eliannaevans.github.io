@@ -4,7 +4,7 @@
     "href": "assignment04.html",
     "title": "Assignment 04",
     "section": "",
-    "text": "Synergy Report\nOur team members worked collaboratively to produce these plots. The bar chart with varying widths was spearheaded by Vikrant and Namrta, and the facetted charts were primarily done by Eli and Seongdeok. Additionally, fonts were added by Vikrant, titles were added by Lizzie, Eli merged these additions with the main plot code, and Namrta had the idea to use simple custom data to aid in plot creation."
+    "text": "Edited\n\n# import fonts\nlibrary(extrafont)\n\nRegistering fonts with R\n\n#font_import()\nloadfonts()\n\nggplot(hpi) + \n  geom_dotplot(aes(x=hpi)) + \n  facet_wrap(vars(continent)) + \n  theme(text = element_text(family=\"Times\"))\n\nBin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.\n\n\n\n\nggplot(test) + \n  geom_histogram(aes(x=height), \n                 color='steelblue4', \n                 fill='steelblue3', \n                 breaks=unique(test$weight)) +\n  theme(text = element_text(family=\"Times\"))\n\n\n\n\n\nSynergy Report\nOur team members worked collaboratively to produce these plots. The bar chart with varying widths was spearheaded by Vikrant and Namrta, and the facetted charts were primarily done by Eli and Seongdeok. Additionally, fonts were added by Vikrant, titles were added by Lizzie, Eli merged these additions with the main plot code, and Namrta had the idea to use simple custom data to aid in plot creation."
   },
   {
     "objectID": "assignment02.html",
