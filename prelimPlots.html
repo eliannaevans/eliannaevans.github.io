@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Eli Evans - Assignment 05</title>
+<title>Eli Evans - Preliminary Plots</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -210,9 +210,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#bar-chart" id="toc-bar-chart" class="nav-link active" data-scroll-target="#bar-chart">Bar Chart</a></li>
-  <li><a href="#column-chart" id="toc-column-chart" class="nav-link" data-scroll-target="#column-chart">Column Chart</a></li>
-  <li><a href="#circular-area-plot" id="toc-circular-area-plot" class="nav-link" data-scroll-target="#circular-area-plot">Circular Area Plot</a></li>
+  <li><a href="#load-in-libraries" id="toc-load-in-libraries" class="nav-link active" data-scroll-target="#load-in-libraries">Load in libraries</a></li>
+  <li><a href="#read-in-speed-dating-data-for-preliminary-graphs-only-use-data-without-nulls" id="toc-read-in-speed-dating-data-for-preliminary-graphs-only-use-data-without-nulls" class="nav-link" data-scroll-target="#read-in-speed-dating-data-for-preliminary-graphs-only-use-data-without-nulls">Read in speed dating data (for preliminary graphs, only use data without nulls)</a></li>
+  <li><a href="#line-plot" id="toc-line-plot" class="nav-link" data-scroll-target="#line-plot">Line Plot</a></li>
+  <li><a href="#smoothed-line-chart" id="toc-smoothed-line-chart" class="nav-link" data-scroll-target="#smoothed-line-chart">Smoothed Line Chart</a></li>
+  <li><a href="#bubble-plot" id="toc-bubble-plot" class="nav-link" data-scroll-target="#bubble-plot">Bubble Plot</a></li>
   </ul>
 </nav>
     </div>
@@ -221,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Assignment 05</h1>
+<h1 class="title">Preliminary Plots</h1>
 </div>
 
 
@@ -235,6 +237,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="load-in-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="load-in-libraries">Load in libraries</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -247,11 +251,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="read-in-speed-dating-data-for-preliminary-graphs-only-use-data-without-nulls" class="level3">
+<h3 class="anchored" data-anchor-id="read-in-speed-dating-data-for-preliminary-graphs-only-use-data-without-nulls">Read in speed dating data (for preliminary graphs, only use data without nulls)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"speed_dating_data.csv"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(data_path)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="st">"speed_dating_data.csv"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>spd_dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(data_path)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spd_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      iid              id            gender            idg       
  Min.   :  1.0   Min.   : 1.00   Min.   :0.0000   Min.   : 1.00  
@@ -647,105 +655,193 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  NA's   :6362     NA's   :6362    </code></pre>
 </div>
 </div>
-<section id="bar-chart" class="level3">
-<h3 class="anchored" data-anchor-id="bar-chart">Bar Chart</h3>
-<p>Bar chart showing the number of participants that matched who answered that they participated in speed dating with various goals in mind.</p>
+</section>
+<section id="line-plot" class="level3">
+<h3 class="anchored" data-anchor-id="line-plot">Line Plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_match <span class="ot">=</span> data[data<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,] <span class="co"># get all those who matched</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data_bar <span class="ot">=</span> <span class="fu">subset</span>(data_match, <span class="at">select=</span><span class="fu">c</span>(goal, gender))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data_bar <span class="ot">=</span> <span class="fu">na.omit</span>(data_bar)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># change variables character type as a categorical variables</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_bar<span class="sc">$</span>goal) <span class="ot">=</span> <span class="st">"character"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_bar<span class="sc">$</span>gender) <span class="ot">=</span> <span class="st">"character"</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_bar) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>goal, <span class="at">fill=</span>gender), <span class="at">position=</span><span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Seemed Fun"</span>, <span class="st">"Meet New People"</span>,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Get a Date"</span>, <span class="st">"Serious Relationship"</span>,</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"To Say I Did It"</span>, <span class="st">"Other"</span>)) <span class="sc">+</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Goal of Speed Dating"</span>,</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Limited to Participants that Matched"</span>,</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Gender"</span>) <span class="sc">+</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Goal"</span>) <span class="sc">+</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Number of Participants"</span>) <span class="sc">+</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>)) <span class="sc">+</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spddat_plot1 <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">time=</span><span class="fu">c</span>(<span class="st">"Before"</span>, <span class="st">"During"</span>, <span class="st">"Days After"</span>, <span class="st">"Weeks After"</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Before"</span>, <span class="st">"During"</span>, <span class="st">"Days After"</span>, <span class="st">"Weeks After"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                           ,<span class="at">match=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                           ,<span class="at">shar_imp=</span><span class="fu">c</span>(<span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar1_1) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar1_1),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar1_s) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar1_s),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar7_2) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar7_2),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar1_2) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar1_2),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar1_1) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar1_1),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar1_s) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar1_s),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar7_2) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar7_2),</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                                       <span class="fu">mean</span>(spd_dat[<span class="sc">!</span><span class="fu">is.na</span>(spd_dat<span class="sc">$</span>shar1_2) <span class="sc">&amp;</span> spd_dat<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar1_2)))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#spd_dat &lt;- spd_dat[!is.na(spd_dat$shar1_1),]</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#print(mean(spd_dat$shar1_1))</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>spddat_plot1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         time match shar_imp
+1      Before     0 11.98161
+2      During     0 12.54435
+3  Days After     0 12.37751
+4 Weeks After     0 12.82038
+5      Before     1 11.15288
+6      During     1 12.01364
+7  Days After     1 11.04863
+8 Weeks After     1 12.46087</code></pre>
+</div>
+</div>
+<p>Line chart over time with colors for different categories</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(spddat_plot1, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>shar_imp, <span class="at">group=</span>match, <span class="at">colour=</span><span class="fu">as.character</span>(match))) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"No Match"</span>, <span class="st">"Match"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Importance of Shared Interests over Time Surveyed"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Match"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Time surveyed"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Importance of shared interests"</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="assignment05_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="column-chart" class="level3">
-<h3 class="anchored" data-anchor-id="column-chart">Column Chart</h3>
-<p>Column chart showing participants’ indicated goal of speed dating and the total number of matches made for participants with that goal.</p>
+<section id="smoothed-line-chart" class="level3">
+<h3 class="anchored" data-anchor-id="smoothed-line-chart">Smoothed Line Chart</h3>
+<p>Line chart of order vs.&nbsp;amount liked with match and gender</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data_col <span class="ot">=</span> <span class="fu">subset</span>(data, <span class="at">select=</span><span class="fu">c</span>(goal, match, gender))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_col <span class="ot">=</span> <span class="fu">na.omit</span>(data_col)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># change variables to character type as a categorical variables</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_col<span class="sc">$</span>goal) <span class="ot">=</span> <span class="st">"character"</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_col<span class="sc">$</span>gender) <span class="ot">=</span> <span class="st">"character"</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_col) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span>goal, <span class="at">y=</span>match, <span class="at">fill=</span>gender)) <span class="sc">+</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Seemed Fun"</span>, <span class="st">"Meet New People"</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Get a Date"</span>, <span class="st">"Serious Relationship"</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"To Say I Did It"</span>, <span class="st">"Other"</span>)) <span class="sc">+</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Goal of Speed Dating and Number of Matches"</span>,</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Gender"</span>) <span class="sc">+</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Goal"</span>) <span class="sc">+</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Total Number of Matches"</span>) <span class="sc">+</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>),</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">10</span>, <span class="at">vjust =</span> <span class="fl">0.75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>spddat_plot2 <span class="ot">&lt;-</span> <span class="fu">subset</span>(spd_dat, <span class="at">select=</span><span class="fu">c</span>(order, like, match, gender))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(spddat_plot2) # reveals that like column has 240 NAs</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>spddat_plot2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(spddat_plot2)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#spddat_plot2 &lt;- head(spddat_plot2, 50)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spddat_plot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     order             like            match            gender      
+ Min.   : 1.000   Min.   : 0.000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.: 4.000   1st Qu.: 5.000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median : 8.000   Median : 6.000   Median :0.0000   Median :1.0000  
+ Mean   : 8.843   Mean   : 6.134   Mean   :0.1691   Mean   :0.5025  
+ 3rd Qu.:13.000   3rd Qu.: 7.000   3rd Qu.:0.0000   3rd Qu.:1.0000  
+ Max.   :22.000   Max.   :10.000   Max.   :1.0000   Max.   :1.0000  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(spddat_plot2, <span class="fu">aes</span>(<span class="at">x=</span>order, <span class="at">y=</span>like, <span class="at">group=</span><span class="fu">interaction</span>(match, gender), <span class="at">color=</span><span class="fu">as.character</span>(match))) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">linetype=</span><span class="fu">as.character</span>(gender))) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_point(position="jitter") +</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"No Match"</span>, <span class="st">"Match"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>)) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Amount liked match vs. order met"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Match"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">linetype =</span> <span class="st">"Gender"</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Order met in night"</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Amount liked match"</span>) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>)) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 8 rows containing non-finite values (stat_smooth).</code></pre>
+</div>
 <div class="cell-output-display">
-<p><img src="assignment05_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="circular-area-plot" class="level3">
-<h3 class="anchored" data-anchor-id="circular-area-plot">Circular Area Plot</h3>
-<p>Circular area plot showing rated importance of shared interests/hobbies by participants over the course of the study. While not an ideal use of a circular area plot, the speed dating dataset is limited in its time-based variables.</p>
+<section id="bubble-plot" class="level3">
+<h3 class="anchored" data-anchor-id="bubble-plot">Bubble Plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_cir <span class="ot">=</span> <span class="fu">subset</span>(data, <span class="at">select=</span><span class="fu">c</span>(shar1_1, shar1_s, shar7_2, shar1_2, match))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data_cir <span class="ot">=</span> <span class="fu">na.omit</span>(data_cir)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>data_cir <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">time=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                             <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">match=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                               <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                      ,<span class="at">shar_imp=</span><span class="fu">c</span>(<span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar1_1) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar1_1),</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar1_s) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar1_s),</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar7_2) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar7_2),</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar1_2) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">0</span>,]<span class="sc">$</span>shar1_2),</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar1_1) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar1_1),</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar1_s) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar1_s),</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar7_2) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar7_2),</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">mean</span>(data_cir[<span class="sc">!</span><span class="fu">is.na</span>(data_cir<span class="sc">$</span>shar1_2) <span class="sc">&amp;</span> data_cir<span class="sc">$</span>match <span class="sc">==</span> <span class="dv">1</span>,]<span class="sc">$</span>shar1_2)))</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co"># change match to character type as a categorical variable</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(data_cir<span class="sc">$</span>match) <span class="ot">=</span> <span class="st">"character"</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_cir, <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>shar_imp, <span class="at">group=</span>match, <span class="at">fill=</span>match)) <span class="sc">+</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>() <span class="sc">+</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>() <span class="sc">+</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Match"</span>, <span class="st">"No Match"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span>, <span class="st">"During"</span>, <span class="st">"Days After"</span>, <span class="st">"Weeks After"</span>)) <span class="sc">+</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rated Imporatance of Shared Interests over Time"</span>,</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Match"</span>) <span class="sc">+</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Time Surveyed"</span>) <span class="sc">+</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spddat_plot3 <span class="ot">&lt;-</span> <span class="fu">subset</span>(spd_dat, <span class="at">select=</span><span class="fu">c</span>(income, gender, mn_sat, age))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>spddat_plot3<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">""</span>, spddat_plot3<span class="sc">$</span>income)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>spddat_plot3<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(spddat_plot3<span class="sc">$</span>income)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>spddat_plot3<span class="sc">$</span>mn_sat <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">""</span>, spddat_plot3<span class="sc">$</span>mn_sat)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>spddat_plot3<span class="sc">$</span>mn_sat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(spddat_plot3<span class="sc">$</span>mn_sat)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>spddat_plot3 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(spddat_plot3)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spddat_plot3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     income           gender           mn_sat          age       
+ Min.   :  8607   Min.   :0.0000   Min.   : 914   Min.   :21.00  
+ 1st Qu.: 33772   1st Qu.:0.0000   1st Qu.:1210   1st Qu.:24.00  
+ Median : 46185   Median :0.0000   Median :1310   Median :26.00  
+ Mean   : 46524   Mean   :0.3486   Mean   :1297   Mean   :26.32  
+ 3rd Qu.: 55080   3rd Qu.:1.0000   3rd Qu.:1400   3rd Qu.:28.00  
+ Max.   :106663   Max.   :1.0000   Max.   :1470   Max.   :55.00  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>spddat_plot3 <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="ot">-&gt;</span> spddat_plot3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(spddat_plot3, <span class="fu">aes</span>(<span class="at">x=</span>mn_sat, <span class="at">y=</span>income, <span class="at">group=</span>gender, <span class="at">color=</span><span class="fu">as.character</span>(gender))) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size=</span>age), <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans=</span><span class="st">"log10"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">7</span>), <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">55</span>)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Demographics by Home Area"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Age"</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Median SAT Score"</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Income of Home Area"</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="assignment05_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>```{ggplot(spddat_plot3, aes(x=field_cd, y=income, group=gender, color=as.character(gender))) +} geom_point(aes(size=like), alpha=0.7) + scale_y_continuous(trans=“log10”) + scale_colour_discrete(labels=c(“Female”, “Male”), type=c(“#7b3494”, “#008837”)) + scale_size(range=c(0.25, 6)) + labs(title = ““, colour =”Gender”, size = “Amount Liked”) + xlab(“Field of Major”) + ylab(“Income of Home Area”) + theme_light() + theme(text = element_text(family=“Avenir”))</p>
+<pre><code>
+### Interest Correlation Plots
+
+
+::: {.cell}
+
+```{.r .cell-code}
+sdp4 &lt;- subset(spd_dat, select=c(int_corr, shar1_1, match, wave))
+sdp4 &lt;- na.omit(sdp4)
+summary(sdp4)</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>    int_corr          shar1_1          match             wave     
+ Min.   :-0.8300   Min.   : 0.00   Min.   :0.0000   Min.   : 1.0  
+ 1st Qu.:-0.0100   1st Qu.: 9.52   1st Qu.:0.0000   1st Qu.: 7.0  
+ Median : 0.2100   Median :10.64   Median :0.0000   Median :11.0  
+ Mean   : 0.1974   Mean   :11.85   Mean   :0.1645   Mean   :11.4  
+ 3rd Qu.: 0.4300   3rd Qu.:16.00   3rd Qu.:0.0000   3rd Qu.:15.0  
+ Max.   : 0.9100   Max.   :30.00   Max.   :1.0000   Max.   :21.0  </code></pre>
+</div>
+<p>:::</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sdp4, <span class="fu">aes</span>(<span class="at">x=</span>shar1_1, <span class="at">y=</span>int_corr, <span class="at">colour=</span><span class="fu">as.character</span>(match), <span class="at">group=</span>match)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"No Match"</span>, <span class="st">"Match"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interest Correlation and Importance of Shared Interest"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Match"</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Interest Correlation"</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>)) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sdp4, <span class="fu">aes</span>(<span class="at">x=</span>shar1_1, <span class="at">y=</span>int_corr, <span class="at">colour=</span>int_corr)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"RdYlGn"</span>) <span class="sc">+</span> <span class="co">#PRGn</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interest Correlation and Importance of Shared Interest"</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Interest Correlation"</span>) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">0</span>), <span class="at">color=</span><span class="st">"#ffffbf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
