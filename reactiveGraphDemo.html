@@ -80,9 +80,6 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">About</a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./resources.html">Resources</a>
   </li>  
   <li class="nav-item">
@@ -117,6 +114,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./assignment05.html">
  <span class="dropdown-text">Assignment 05</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment06.html">
+ <span class="dropdown-text">Assignment 06</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment07.html">
+ <span class="dropdown-text">Assignment 07</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -129,6 +134,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="./reactiveGraphDemo.html">
  <span class="dropdown-text">Reactive Graph Demo with Shiny</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment07.html">
+ <span class="dropdown-text">Assignment 07</span></a>
   </li>  
     </ul>
   </li>
@@ -175,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="app.r">app.R</h3>
 <pre class="{library(shiny)}"><code>library(tidyverse)
 
-data_path &lt;- "../speed_dating_data.csv"
+data_path &lt;- "speed_dating_data.csv"
 spd_dat &lt;- read.csv(data_path)
 
 spddat_plot2 &lt;- subset(spd_dat, select=c(goal, match, gender, 
