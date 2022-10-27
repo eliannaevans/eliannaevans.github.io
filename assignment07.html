@@ -183,8 +183,104 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="hackathon-2.0">Hackathon 2.0</h3>
 <iframe width="800" height="600" src="https://eliannaevans.shinyapps.io/assignment07/" frameborder="0" allowfullscreen="">
 </iframe>
+<section id="app.r-contents" class="level4">
+<h4 class="anchored" data-anchor-id="app.r-contents">app.R Contents</h4>
+<pre><code>library(shiny)
+library(tidyverse)
+
+data_path &lt;- "speed_dating_data.csv"
+spd_dat &lt;- read.csv(data_path)
+
+spddat &lt;- subset(spd_dat, select=c(race, gender, age, pf_o_att, match))
+
+spddat %&gt;% mutate(race = recode(race,
+                               '1' = "Black/African American",
+                               '2' = "European/Caucasian-American",
+                               '3' = "Latino/Hispanic American",
+                               '4' = "Asian/Pacific Islander/Asian-American",
+                               '5' = "Native American",
+                               '6' = "Other")) -&gt; spddat
+spddat %&gt;% mutate(gender = recode(gender,
+                                  '0' = "Women",
+                                  '1' = "Men")) -&gt; spddat
+spddat %&gt;% mutate(match = recode(match,
+                                 '0' = "No Match",
+                                 '1' = "Match")) -&gt; spddat
+
+spddat &lt;- na.omit(spddat)
+
+# Define UI for app that draws a histogram ----
+ui &lt;- fluidPage(
+  
+  # App title ----
+  titlePanel("Assignment07: Hackathon 2.0"),
+  
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+    
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+      
+      radioButtons("type", h4("Type of Plot"),
+                   choices=c("Bar Plot", "Scatter Plot", "Pie Chart")),
+      selectInput("plot", h4("Plot"), "N/A"),
+      helpText(h4("Synergy Report:"), "Team members put together code for 
+               various plot types as shown by the dropdown selection labels.
+               Eli placed the various plot codes into this Shiny app.")
+      
+    ),
+    
+    # Main panel for displaying outputs ----
+    mainPanel(
+      plotOutput("plot")
+    )
+  )
+)
+
+# Define server logic required to draw a histogram ----
+server &lt;- function(input, output, session) {
+  observe({
+    updateSelectInput(session, "plot",
+                      choices=switch(input$type,
+                                     "Bar Plot" = c("Namrta's Bar Chart",
+                                                    "Seongdeok's Bar Chart"),
+                                     "Scatter Plot" = c("Namrta's Scatter Plot",
+                                                        "Seongdeok's Scatter Plot"),
+                                     "Pie Chart" = c("Namrta's Pie Chart"))
+    )
+  })
+  
+  output$plot &lt;- renderPlot({
+    switch(input$plot,
+    "Namrta's Bar Chart" = ggplot(spddat, aes(x=race, fill=gender)) +
+                          geom_bar() +
+                          labs(x= "Race", y="Number of Participants",
+                               title="Racial Profile of Participants"),
+    "Namrta's Scatter Plot" = ggplot(spddat, aes(x=age, y=pf_o_att)) +
+                              geom_point(color="seagreen4") +
+                              labs(x="Age", y="Preference of Attractivenes", 
+                                   title="Preference of Attractiveness by age", 
+                                   colour=sample),
+    "Namrta's Pie Chart" = ggplot(spddat, aes(x = "", y = match, fill = race, group=race)) +
+                           geom_bar(stat = "identity", position = "fill") + 
+                           facet_grid(cols = vars(gender)) +
+                           coord_polar("y", start = 0) +
+                           theme_void(),
+    "Seongdeok's Bar Chart" = ggplot(spddat, aes(x = gender, fill = race)) + 
+                                geom_bar(position = "dodge"),
+    "Seongdeok's Scatter Plot" = ggplot(spddat, aes(x = gender, 
+                                                    y = age, 
+                                                    col = race)) + 
+                                    geom_point()
+    )
+  })
+  
+}
+
+shinyApp(ui = ui, server = server)</code></pre>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
