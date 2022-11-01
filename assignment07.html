@@ -232,7 +232,7 @@ spddat_match &lt;- spddat_match[spddat_match$match == "Match",] # get all those 
 spddat_melt = subset(spddat, select=c(match, race, attr))
 spddat_melt = melt(spddat_melt, value.name="attr") # Reorder data
 
-# data for Namrt'as Pie Chart
+# data for Namrta's Pie Chart
 spddat_match2 &lt;- subset(spddat, select=c(match, gender, race))
 spddat_match2 &lt;- spddat_match2[spddat_match2$match == "Match",] # get all those who matched
 
@@ -250,9 +250,15 @@ ui &lt;- fluidPage(
     sidebarPanel(
       
       radioButtons("type", h4("Type of Plot"),
-                   choices=c("Bar PlotChar"Scatter Plot", "Line Plot", "Pie Chart")),</code></pre>
-<p>, “Heatmap” selectInput(“plot”, h4(“Plot”), “N/A”), helpText(h4(“Synergy Report:”), “Team members put together code for various plot types as shown by the dropdown selection labels. Eli placed the various plot codes into this Shiny app.”), helpText(“Team Members: Namrta Sharma, Eli Evans, Seongdeok Oh, Elisabeth Sanders, Vikrant Sagar Remoddula”)</p>
-<pre><code>    ),
+                   choices=c("Bar Chart", "Scatter Plot", "Line Plot", "Pie Chart", "Heatmap")),
+      selectInput("plot", h4("Plot"), "N/A"),
+      helpText(h4("Synergy Report:"), "Team members put together code for 
+               various plot types as shown by the dropdown selection labels.
+               Eli placed the various plot codes into this Shiny app."),
+      helpText("Team Members: Namrta Sharma, Eli Evans, Seongdeok Oh,
+               Elisabeth Sanders, Vikrant Sagar Remoddula")
+      
+    ),
     
     # Main panel for displaying outputs ----
     mainPanel(
@@ -266,18 +272,21 @@ server &lt;- function(input, output, session) {
   observe({
     updateSelectInput(session, "plot",
                       choices=switch(input$type,
-                                     "Bar PlotChar c("Namrta's Bar Chart",
-                                                    "Seo ngdeok's Bar Chart",
+                                     "Bar Chart" = c("Namrta's Bar Chart",
+                                                     "Seongdeok's Bar Chart",
                                                      "Vikrant's Bar Chart"),
                                      "Scatter Plot" = c("Namrta's Scatter Plot",
                                                         "Seongdeok's Scatter Plot",
-                                                        "Vikrant's Scatter PlotPlot",
-                                                        "Lizzie's Bubble "),
+                                                        "Vikrant's Scatter Plot",
+                                                        "Lizzie's Bubble Plot"),
                                      "Line Plot" = c("Lizzie's Line Plot"),
                                      "Pie Chart" = c("Namrta's Pie Chart",
-                                                     "Vikrant's Pie Chart"))</code></pre>
-<p>, “Heatmap” = c(“Lizzie’s Heatmap”) ) })</p>
-<pre><code>  output$plot &lt;- renderPlot({
+                                                     "Vikrant's Pie Chart"),
+                                     "Heatmap" = c("Lizzie's Heatmap"))
+    )
+  })
+  
+  output$plot &lt;- renderPlot({
     switch(input$plot,
     "Namrta's Bar Chart" = ggplot(spddat, aes(x=race, fill=gender)) +
                           geom_bar() +
@@ -288,10 +297,10 @@ server &lt;- function(input, output, session) {
                               labs(x="Age", y="Preference of Attractivenes", 
                                    title="Preference of Attractiveness by age", 
                                    colour=sample),
-    "Namrta's Pie Chart" = ggplot(spddat, ae_match2s(x = "", y = m=h, fill = r=, group=race)) +
-                           geom _bar(stat = "=ntity", po
+    "Namrta's Pie Chart" = ggplot(spddat_match2, aes(x = "", y=match, fill=race, group=race)) +
+                            geom_bar(stat="identity") + 
                             facet_grid(cols = vars(gender)) +
-                           coor d_polar("y", start = 0) +
+                            coord_polar("y", start = 0) +
                             theme_void(),
     "Seongdeok's Bar Chart" = ggplot(spddat, aes(x = gender, fill = race)) + 
                                 geom_bar(position = "dodge"),
@@ -308,8 +317,8 @@ server &lt;- function(input, output, session) {
     "Vikrant's Scatter Plot" = ggplot(spddat, aes(x = match, 
                                                   y = age_o, 
                                                   col = gender)) + 
-                                geo_poimnt()
-     "Vikrant's Bar Chart" = ggplot(spddat_match) +
+                                geom_point(),
+    "Vikrant's Bar Chart" = ggplot(spddat_match) +
                               geom_bar(aes(x=age_o, fill=gender, group=gender), 
                                        position="dodge", color="#252525") +
                               scale_x_continuous(breaks=c(18, 25, 30, 35, 40, 45)) +
@@ -320,7 +329,7 @@ server &lt;- function(input, output, session) {
                               xlab("Age") +
                               ylab("Number of Candidates") +
                               theme_light() +
-                            theme(text = element_text(family="Times New Roman"))inyA,
+                              theme(text = element_text(family="Times New Roman")),
     "Lizzie's Heatmap" = ggplot(spddat_melt, aes(match, race)) +
                           geom_tile(aes(fill = attr)),
     "Lizzie's Bubble Plot" = ggplot(spddat, aes(x = age, y = exercise, size=attr_o)) +
@@ -331,7 +340,7 @@ server &lt;- function(input, output, session) {
   
 }
 
-shpp(ui = ui, server = server)</code></pre>
+shinyApp(ui = ui, server = server)</code></pre>
 
 
 </section>
