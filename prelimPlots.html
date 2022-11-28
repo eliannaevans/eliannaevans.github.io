@@ -185,6 +185,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="dropdown-item" href="./assignment07.html">
  <span class="dropdown-text">Assignment 07</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment09.html">
+ <span class="dropdown-text">Assignment 09</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./assignment10.html">
+ <span class="dropdown-text">Assignment 10</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -224,6 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#line-plot" id="toc-line-plot" class="nav-link" data-scroll-target="#line-plot">Line Plot</a></li>
   <li><a href="#smoothed-line-chart" id="toc-smoothed-line-chart" class="nav-link" data-scroll-target="#smoothed-line-chart">Smoothed Line Chart</a></li>
   <li><a href="#bubble-plot" id="toc-bubble-plot" class="nav-link" data-scroll-target="#bubble-plot">Bubble Plot</a></li>
+  <li><a href="#interest-correlation-plots" id="toc-interest-correlation-plots" class="nav-link" data-scroll-target="#interest-correlation-plots">Interest Correlation Plots</a></li>
   </ul>
 </nav>
     </div>
@@ -760,7 +769,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="bubble-plot" class="level3">
 <h3 class="anchored" data-anchor-id="bubble-plot">Bubble Plot</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spddat_plot3 <span class="ot">&lt;-</span> <span class="fu">subset</span>(spd_dat, <span class="at">select=</span><span class="fu">c</span>(income, gender, mn_sat, age))</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>spddat_plot3 <span class="ot">&lt;-</span> <span class="fu">subset</span>(spd_dat, <span class="at">select=</span><span class="fu">c</span>(income, gender, mn_sat, age, field_cd, like))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>spddat_plot3<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">""</span>, spddat_plot3<span class="sc">$</span>income)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>spddat_plot3<span class="sc">$</span>income <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(spddat_plot3<span class="sc">$</span>income)</span>
@@ -773,11 +782,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>     income           gender           mn_sat          age       
  Min.   :  8607   Min.   :0.0000   Min.   : 914   Min.   :21.00  
- 1st Qu.: 33772   1st Qu.:0.0000   1st Qu.:1210   1st Qu.:24.00  
- Median : 46185   Median :0.0000   Median :1310   Median :26.00  
- Mean   : 46524   Mean   :0.3486   Mean   :1297   Mean   :26.32  
+ 1st Qu.: 35187   1st Qu.:0.0000   1st Qu.:1210   1st Qu.:24.00  
+ Median : 46272   Median :0.0000   Median :1310   Median :26.00  
+ Mean   : 46838   Mean   :0.3431   Mean   :1297   Mean   :26.32  
  3rd Qu.: 55080   3rd Qu.:1.0000   3rd Qu.:1400   3rd Qu.:28.00  
- Max.   :106663   Max.   :1.0000   Max.   :1470   Max.   :55.00  </code></pre>
+ Max.   :106663   Max.   :1.0000   Max.   :1470   Max.   :55.00  
+    field_cd           like       
+ Min.   : 1.000   Min.   : 0.000  
+ 1st Qu.: 5.000   1st Qu.: 5.000  
+ Median : 8.000   Median : 6.000  
+ Mean   : 7.879   Mean   : 6.006  
+ 3rd Qu.:11.000   3rd Qu.: 7.000  
+ Max.   :18.000   Max.   :10.000  </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>spddat_plot3 <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="ot">-&gt;</span> spddat_plot3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -798,17 +814,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="prelimPlots_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>```{ggplot(spddat_plot3, aes(x=field_cd, y=income, group=gender, color=as.character(gender))) +} geom_point(aes(size=like), alpha=0.7) + scale_y_continuous(trans=“log10”) + scale_colour_discrete(labels=c(“Female”, “Male”), type=c(“#7b3494”, “#008837”)) + scale_size(range=c(0.25, 6)) + labs(title = ““, colour =”Gender”, size = “Amount Liked”) + xlab(“Field of Major”) + ylab(“Income of Home Area”) + theme_light() + theme(text = element_text(family=“Avenir”))</p>
-<pre><code>
-### Interest Correlation Plots
-
-
-::: {.cell}
-
-```{.r .cell-code}
-sdp4 &lt;- subset(spd_dat, select=c(int_corr, shar1_1, match, wave))
-sdp4 &lt;- na.omit(sdp4)
-summary(sdp4)</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(spddat_plot3, <span class="fu">aes</span>(<span class="at">x=</span>field_cd, <span class="at">y=</span>income, <span class="at">group=</span>gender, <span class="at">color=</span><span class="fu">as.character</span>(gender))) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size=</span>like), <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">trans=</span><span class="st">"log10"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="fl">0.25</span>, <span class="dv">6</span>)) <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">""</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">size =</span> <span class="st">"Amount Liked"</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Field of Major"</span>) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Income of Home Area"</span>) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="interest-correlation-plots" class="level3">
+<h3 class="anchored" data-anchor-id="interest-correlation-plots">Interest Correlation Plots</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sdp4 <span class="ot">&lt;-</span> <span class="fu">subset</span>(spd_dat, <span class="at">select=</span><span class="fu">c</span>(int_corr, shar1_1, match, wave))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sdp4 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(sdp4)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sdp4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    int_corr          shar1_1          match             wave     
  Min.   :-0.8300   Min.   : 0.00   Min.   :0.0000   Min.   : 1.0  
@@ -818,39 +847,39 @@ summary(sdp4)</code></pre>
  3rd Qu.: 0.4300   3rd Qu.:16.00   3rd Qu.:0.0000   3rd Qu.:15.0  
  Max.   : 0.9100   Max.   :30.00   Max.   :1.0000   Max.   :21.0  </code></pre>
 </div>
-<p>:::</p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sdp4, <span class="fu">aes</span>(<span class="at">x=</span>shar1_1, <span class="at">y=</span>int_corr, <span class="at">colour=</span><span class="fu">as.character</span>(match), <span class="at">group=</span>match)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"No Match"</span>, <span class="st">"Match"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interest Correlation and Importance of Shared Interest"</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Match"</span>) <span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Interest Correlation"</span>) <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>)) <span class="sc">+</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sdp4, <span class="fu">aes</span>(<span class="at">x=</span>shar1_1, <span class="at">y=</span>int_corr, <span class="at">colour=</span><span class="fu">as.character</span>(match), <span class="at">group=</span>match)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"No Match"</span>, <span class="st">"Match"</span>), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"#7b3494"</span>, <span class="st">"#008837"</span>)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interest Correlation and Importance of Shared Interest"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour =</span> <span class="st">"Match"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Interest Correlation"</span>) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>)) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="prelimPlots_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sdp4, <span class="fu">aes</span>(<span class="at">x=</span>shar1_1, <span class="at">y=</span>int_corr, <span class="at">colour=</span>int_corr)) <span class="sc">+</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"RdYlGn"</span>) <span class="sc">+</span> <span class="co">#PRGn</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interest Correlation and Importance of Shared Interest"</span>) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Interest Correlation"</span>) <span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>),</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">0</span>), <span class="at">color=</span><span class="st">"#ffffbf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sdp4, <span class="fu">aes</span>(<span class="at">x=</span>shar1_1, <span class="at">y=</span>int_corr, <span class="at">colour=</span>int_corr)) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_distiller</span>(<span class="at">palette =</span> <span class="st">"RdYlGn"</span>) <span class="sc">+</span> <span class="co">#PRGn</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interest Correlation and Importance of Shared Interest"</span>) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Importance of Shared Interests"</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Interest Correlation"</span>) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_grey</span>() <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family=</span><span class="st">"Avenir"</span>),</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span><span class="dv">0</span>), <span class="at">color=</span><span class="st">"#ffffbf"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="prelimPlots_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="prelimPlots_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
